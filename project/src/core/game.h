@@ -68,13 +68,35 @@ void RunGame(struct Game* game);
 * Funcion para cargar un sprite al gestor de recursos del juego.
 * Se libera de memoria automáticamente cuando se cierra el juego.
 * 
-* @param[in] manager Puntero al gestor de recursos donde se cargará el sprite.
+* @param[in] game Puntero a la instancia del juego.
 * @param[in] textureFilename Ruta de la imagen que se cargará como sprite.
 * @param[in] name Nombre del sprite.
 * 
 * @return Retorna 1 si la carga ha tenido éxito, caso contrario, retorna 0.
 */
-int LoadSprite(ResourcesManager* manager, const char* textureFilename, const char* name);
+int LoadSprite(Game* game, const char* textureFilename, const char* name);
+
+/**
+* Funcion para cargar un sprite con carga de frames y animaciones.
+* 
+* @param[in] game Puntero a la instancia del juego.
+* @param[in] textureFilename Ruta de la imagen que se cargará como sprite.
+* @param[in] dataFilename Ruta del archivo que contiene los datos de carga del sprite.
+* 
+* @return Retorna 1 si la carga ha tenido éxito, caso contrario, retorna 0.
+*/
+int LoadSpriteWithOptions(Game* game, const char* textureFilename, const char* dataFilename);
+
+/**
+* Funcion para cargar varios sprites desde un archivo.
+* 
+* @param[in] game Puntero a la instancia del juego.
+* @param[in] textureFilename Ruta de la imagen que se cargará como sprite.
+* @param[in] dataFilename Ruta del archivo que contiene los datos de los sprites a cargar.
+* 
+* @return Retorna 1 si la carga ha tenido éxito, caso contrario, retorna 0.
+*/
+int LoadSpriteAtlas(Game* game, const char* textureFilename, const char* dataFilename);
 
 /**
 * Funcion para cargar un nivel en el juego a traves de un archivo.
@@ -95,7 +117,8 @@ int AddLevel(struct Game* game, const char* name,
 
 /**
 * Funcion para liberar memoria de una instancia de juego.
-* También se elimina de memoria los recursos del gestor de recursos.
+* Se elimina de memoria los recursos del gestor de recursos.
+* Se elimina de momoria los niveles cargados.
 * 
 * @param[in] game Referencia en memoria de la instancia del juego.
 */
