@@ -3,31 +3,44 @@
 * @author: Mishicoder
 * 
 * Punto de entrada del videojuego.
+* Raylib: https://github.com/raysan5/raylib/blob/master/src/raylib.h
+* Hoja de Raylib: https://www.raylib.com/cheatsheet/cheatsheet.html
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "core/resources_manager.h"
-#include "core/resources/tilemap.h"
+#include <raylib.h>
+#include <stdint.h>
+//#include "core/resources_manager.h"
+#include "core/game.h"
+#include "levels/test_level.h"
 
 // definir funciones para cargar sprites
-int LoadSprite(ResourcesManager* manager, const char* textureFilename, const char* name);
+/*int LoadSprite(ResourcesManager* manager, const char* textureFilename, const char* name);
 int LoadSpriteWithOptions(ResourcesManager* manager, const char* textureFilename, const char* dataFilename);
-int LoadSpriteAtlas(ResourcesManager* manager, const char* textureFilename, const char* dataFilename);
+int LoadSpriteAtlas(ResourcesManager* manager, const char* textureFilename, const char* dataFilename);*/
 
 int main()
 {
-	ResourcesManager manager;
-	InitResourcesManager(&manager);
+	GameConfig config = { 0 };
+	config.windowTitle = "My Farm Game";
+	config.windowWidth = 800;
+	config.windowHeight = 600;
+	config.windowFullscreen = 0;
+	config.useEscapeToExit = 1;
+	config.colorBackground = (Color){ 20, 23, 21, 255 };
 
-	// cargar recursos
-
-	UnloadResourcesManager(&manager);
+	Game game;
+	InitGame(&game, config);
+	AddLevel(&game, "test", 0, 0, 0, TL_Run);
+	RunGame(&game);
+	FreeGame(&game);
 
 	return 0;
 }
 
+/*
 int LoadSprite(ResourcesManager* manager, const char* textureFilename, const char* name)
 {
 	TextureResult result = AddTexture(manager, textureFilename);
@@ -224,3 +237,4 @@ int LoadSpriteAtlas(ResourcesManager* manager, const char* textureFilename, cons
 	fclose(file);
 	return 1;
 }
+*/
